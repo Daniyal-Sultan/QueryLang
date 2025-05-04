@@ -4,7 +4,7 @@ BISON = bison
 
 all: querylang
 
-querylang: lexer.yy.c parser.tab.c ast.c codegen.c main.c
+querylang: lexer.yy.c parser.tab.c ast.c code_generate.c main.c
     $(CC) -o $@ $^
 
 lexer.yy.c: lexer.l
