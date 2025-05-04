@@ -14,10 +14,12 @@ void yyerror(const char *s);
     struct AstNode *node;
 }
 
-%token SELECT FILTER AGGREGATE
+/* Add ALL tokens used in lexer.l */
+%token SELECT FILTER AGGREGATE JOIN
+%token GROUPBY AS LPAREN RPAREN COMMA
+%token GT LT EQ
 %token <str> IDENTIFIER
 %token <num> NUMBER
-%token COMMA GT
 
 %type <node> program operation_list operation select_op filter_op aggregate_op column_list
 
