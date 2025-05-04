@@ -1,24 +1,27 @@
 %{
+#include "parser.tab.h"
 #include "ast.h"
-#include <stdio.h>
 #include <stdlib.h>
-
-extern int yylex();
-extern FILE *yyin;
-void yyerror(const char *s);
+#include <string.h>
 %}
 
-%union {
-    char *str;
-    int num;
-    struct AstNode *node;
-}
+%option noyywrap
 
-/* Add ALL tokens used in lexer.l */
-%token SELECT FILTER AGGREGATE JOIN
-%token GROUPBY AS LPAREN RPAREN COMMA
-%token GT LT EQ
-%token <str> IDENTIFIER
-%token <num> NUMBER
-
-%type <node> program operation_list operation select_op filter_op aggregate_op column_list
+%%
+SELECT      { return SELECT; }
+FILTER      { return FILTER; }
+AGGREGATE   { return AGGREGATE; }
+JOIN        { return JOIN; }
+GROUP\s+BY  { return GROUPBY; }
+AS          { return AS; }
+[a-zA-Z_][a-zA-Z0-9_]* { yylval.str = strdup(yytext); return IDENTIFIER; }
+[0-9]+      { yylval.num = atoi(yytext); return NUMBER; }
+">"         { return GT; }
+"="         { return EQ; }
+"<"         { return LT; }
+","         { return COMMA; }
+"("         { return LPAREN; }
+")"         { return RPAREN; }
+[\n\t ]+    { /* ignore whitespace */ }
+.           { fprintf(stderr, "Invalid token: %s\n", yytext); }
+%%
