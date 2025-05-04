@@ -8,6 +8,8 @@ For Linux:
   2. **Clone Repo:** Run '**git clone https://github.com/Daniyal-Sultan/QueryLang/**'
   3. **Build the Project:** Change directory to the project via '**cd QueryLang**', then start building via '**make**'
 
+  **Note:** When compiling, a common error you might come across in the Makefile is ```*** missing separator```. To resolve this, simply modify the Makefile by replacing the **multiple spaces** before $(CC), $(FLEX), $(BISON), and rm, with a single **tab indent**.
+
 For Windows:
   1. **Install WSL:** Open Powershell as Administrator and run '**wsl --install**', then reboot the system.
   2. **Install Ubuntu**: When rebooted, go to the Microsoft Store and install Ubuntu.
@@ -18,3 +20,7 @@ For Windows:
   2. **Generate Script:** Use the already-built querylang and run '**./querylang input.ql > output.py**' in your terminal. This will generate the executable output.py
   3. **Run The Executable:** In your terminal, run '**python3 output.py**' to run the executable. (***Ensure the Pandas library is installed***)
 
+# Sample input.ql Code:
+<pre>SELECT col1, col2
+FILTER col3 > 100
+AGGREGATE col1 SUM</pre>
